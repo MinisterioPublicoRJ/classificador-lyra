@@ -12,3 +12,14 @@ sentencas = [
     Com o trânsito em julgado, dê-se baixa e arquive-se.
     """
 ]
+
+nao_sentencas = [
+    """
+    1) Desnecessária a prorrogação da guarda provisória uma vez que a
+ definitiva já foi dada nos autos em apenso de nº 2008.050000425-5, conforme
+ sentença lá prolatada. 2) Retornem os autos ao MP para eslcarecer se
+ insiste na designação de AIJ, uma vez que os guardiões declararam às fls.278
+ e 280 que pretendem tão somente a guarda definitiva dos menores e não ai
+ adoção.
+    """
+]
