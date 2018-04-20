@@ -139,10 +139,10 @@ class ArquivamentoClassifier(BaseClassifier):
                              regex=regex)
 
 
-class ExtincaoProcesso(BaseClassifier):
+class ExtincaoProcessoClassifier(BaseClassifier):
     def __init__(self, texto):
         regex = r'(extingo o presente processo)'
-        super(ExtincaoProcesso,
+        super(ExtincaoProcessoClassifier,
               self).__init__(texto,
                              regex=regex)
 
@@ -176,7 +176,7 @@ classificadores = [ProcedenteClassifier,
                    DaProvimentoClassifier,
                    IndeferenciaClassifier,
                    ArquivamentoClassifier,
-                   ExtincaoProcesso]
+                   ExtincaoProcessoClassifier]
 
 
 def classifica_item(texto):

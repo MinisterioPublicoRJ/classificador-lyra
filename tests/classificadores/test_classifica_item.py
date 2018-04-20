@@ -24,5 +24,5 @@ class ClassificaTest(TestCase):
             'DaProvimentoClassifier': {'positivo': False, 'pesos': []},
             'IndeferenciaClassifier': {'positivo': False, 'pesos': []},
             'ArquivamentoClassifier': {'positivo': False, 'pesos': []},
-            'ExtincaoProcesso': {'positivo': False, 'pesos': []}
+            'ExtincaoProcessoClassifier': {'positivo': False, 'pesos': []}
         }
