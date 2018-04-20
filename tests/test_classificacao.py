@@ -5,7 +5,7 @@ from tests.fixtures import sentencas, nao_sentencas
 
 
 def _verifica_resultado(resultado):
-    return sum([r[0] for r in resultado['classificacoes']])
+    return resultado['positivo']
 
 
 class Classificacao(TestCase):

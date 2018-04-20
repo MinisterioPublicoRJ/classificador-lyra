@@ -1,4 +1,5 @@
 import re
+from collections import namedtuple
 
 
 class BaseClassifier:
@@ -179,12 +180,22 @@ classificadores = [ProcedenteClassifier,
 
 
 def classifica_item(texto):
-    classificacoes = []
+    classificacoes = {}
+    namedtuple
 
     for classificador in classificadores:
         classificador = classificador(texto)
         classificador.classificar()
-        classificacoes += [(classificador.positivo, classificador.pesos)]
+
+        classificacoes[classificador.__class__.__name__] = {
+            'positivo': classificador.positivo,
+            'pesos': classificador.pesos,
+        }
+
     return {
         'conteudo': texto,
-        'classificacoes': classificacoes}
+        'classificacoes': classificacoes,
+        'positivo': sum(
+            [classificacoes[x]['positivo'] for x in classificacoes]
+        )
+    }
