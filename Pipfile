@@ -5,6 +5,10 @@ name = "pypi"
 
 [dev-packages]
 pytest = "*"
+"autopep8" = "*"
+yapf = "*"
+"flake8" = "*"
+ipdb = "*"
 
 [packages]
 

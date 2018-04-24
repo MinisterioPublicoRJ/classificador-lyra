@@ -1,4 +1,5 @@
 import re
+from collections import namedtuple
 
 
 class BaseClassifier:
@@ -138,10 +139,10 @@ class ArquivamentoClassifier(BaseClassifier):
                              regex=regex)
 
 
-class ExtincaoProcesso(BaseClassifier):
+class ExtincaoProcessoClassifier(BaseClassifier):
     def __init__(self, texto):
         regex = r'(extingo o presente processo)'
-        super(ExtincaoProcesso,
+        super(ExtincaoProcessoClassifier,
               self).__init__(texto,
                              regex=regex)
 
@@ -175,16 +176,26 @@ classificadores = [ProcedenteClassifier,
                    DaProvimentoClassifier,
                    IndeferenciaClassifier,
                    ArquivamentoClassifier,
-                   ExtincaoProcesso]
+                   ExtincaoProcessoClassifier]
 
 
 def classifica_item(texto):
-    classificacoes = []
+    classificacoes = {}
+    namedtuple
 
     for classificador in classificadores:
         classificador = classificador(texto)
         classificador.classificar()
-        classificacoes += [(classificador.positivo, classificador.pesos)]
+
+        classificacoes[classificador.__class__.__name__] = {
+            'positivo': classificador.positivo,
+            'pesos': classificador.pesos,
+        }
+
     return {
         'conteudo': texto,
-        'classificacoes': classificacoes}
+        'classificacoes': classificacoes,
+        'positivo': sum(
+            [classificacoes[x]['positivo'] for x in classificacoes]
+        )
+    }
