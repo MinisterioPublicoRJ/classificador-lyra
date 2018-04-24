@@ -11,6 +11,17 @@ class CorretorPalavras(TestCase):
             documento_com_erro, PALAVRAS_IMPORTANTES
         )
 
-        documento_esperado = 'julgo PROCEDENTE o pedido...'
+        documento_esperado = 'JULGO PROCEDENTE o pedido...'
+
+        self.assertEqual(documento_corrigido, documento_esperado)
+
+    def test_corrige_multiplas_palavras_do_documento(self):
+        documento_com_erro = 'JUGO PROCENTE o pedido...'
+
+        documento_corrigido = corrige_palavras(
+            documento_com_erro, PALAVRAS_IMPORTANTES
+        )
+
+        documento_esperado = 'JULGO PROCEDENTE o pedido...'
 
         self.assertEqual(documento_corrigido, documento_esperado)
