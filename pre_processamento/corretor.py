@@ -14,7 +14,8 @@ def corrige_palavras(documento_original, palavras_importantes):
     for palavra in PALAVRAS_IMPORTANTES:
         for token in documento_splitted:
             if SequenceMatcher(None, palavra, token.lower()).ratio() > 0.6:
-                if all(map(lambda x: x.isupper(), token)):
+                n_letras = len(palavra)
+                if sum(map(lambda x: x.isupper(), token)) / n_letras > 0.5:
                     documento_corrigido = documento_corrigido.replace(
                         token,
                         palavra.upper()
