@@ -1,10 +1,8 @@
-import operator
 from unittest import TestCase
 
 from classificadores.regex import classifica_item
 
-from .fixtures.improcedencia import improcedentes, nao_improcedentes
-from .fixtures.procedencia import procedentes, nao_procedentes
+from .fixtures.improcedencia import improcedentes
 
 
 class ClassificaTest(TestCase):
