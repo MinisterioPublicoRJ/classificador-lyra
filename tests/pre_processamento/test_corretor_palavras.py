@@ -63,3 +63,12 @@ class CorretorPalavras(TestCase):
         documento_esperado = 'Pelo exposto, HOMOLOGO o pedido...'
 
         self.assertEqual(documento_corrigido, documento_esperado)
+
+    def test_corrige_palavras_separadas_internamente_com_quebra_de_linha(self):
+        documento = 'Pelo exposto, H O M O L O G O\r\n o pedido...'
+
+        documento_corrigido = formata_palavras(documento)
+
+        documento_esperado = 'Pelo exposto, HOMOLOGO\r\n o pedido...'
+
+        self.assertEqual(documento_corrigido, documento_esperado)
