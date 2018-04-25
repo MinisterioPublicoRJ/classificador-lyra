@@ -1,6 +1,8 @@
 from unittest import TestCase
 
-from pre_processamento.corretor import corrige_palavras, PALAVRAS_IMPORTANTES
+from pre_processamento.corretor import (corrige_palavras,
+                                        PALAVRAS_IMPORTANTES,
+                                        formata_palavras)
 
 
 class CorretorPalavras(TestCase):
@@ -47,3 +49,17 @@ class CorretorPalavras(TestCase):
 
         self.assertEqual(documento_corrigido_1, documento_esperado_1)
         self.assertEqual(documento_corrigido_2, documento_esperado_2)
+
+    def test_corrige_palavras_separadas_internamente_por_espacos(self):
+        """
+            Em alguns casos, palavras importante veem separadas por espacos,
+            como por exemplo H O M O L O G A D O. Estas serão corrigidas
+            para a forma sem espaços.
+        """
+        documento = 'Pelo exposto, H O M O L O G O o pedido...'
+
+        documento_corrigido = formata_palavras(documento)
+
+        documento_esperado = 'Pelo exposto, HOMOLOGO o pedido...'
+
+        self.assertEqual(documento_corrigido, documento_esperado)

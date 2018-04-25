@@ -1,3 +1,5 @@
+import re
+
 from difflib import SequenceMatcher
 
 
@@ -25,5 +27,21 @@ def corrige_palavras(documento_original, palavras_importantes):
                         token,
                         palavra
                     )
+
+    return documento_corrigido
+
+
+def formata_palavras(documento_original):
+    padrao = re.compile(r'(\b([A-ZÁÉÃÕÇ]{1}\s){3,}\b([A-Z]\s?\r)?)')
+    documento_corrigido = documento_original
+
+    encontrado = re.search(padrao, documento_corrigido)
+    while encontrado:
+        palavra_corrigida = re.sub(r'\s+', '', encontrado.group(0)) + ' '
+        documento_corrigido = documento_corrigido.replace(
+            encontrado.group(0),
+            palavra_corrigida
+        )
+        encontrado = re.search(padrao, documento_corrigido)
 
     return documento_corrigido
