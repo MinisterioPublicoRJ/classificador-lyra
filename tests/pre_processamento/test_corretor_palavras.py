@@ -115,6 +115,6 @@ class CorretorPalavras(TestCase):
         palavra = 'Pedido...'
 
         palavra_limpa = limpa_palavra(palavra)
-        palavra_esperada = 'pedido'
+        palavra_esperada = 'Pedido'
 
         self.assertEqual(palavra_limpa, palavra_esperada)

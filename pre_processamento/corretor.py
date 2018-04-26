@@ -3,6 +3,7 @@ import re
 from difflib import SequenceMatcher
 
 
+PADRAO_LIMPEZA = re.compile(r'[^a-záéíóúãõâêç]', re.IGNORECASE)
 LIMIAR_SEMELHANCA = 0.6
 PALAVRAS_IMPORTANTES = [
     'julgo',
@@ -37,11 +38,18 @@ def corrige_palavras(documento_original, palavras_importantes):
     documento_splitted = documento_original.split()
 
     for token in documento_splitted:
-        palavra_similar = encontra_palavra_similiar(
-            token.lower(),
-            palavras_importantes
-        )
+        token_limpo = limpa_palavra(token)
+        if token_limpo.lower() not in palavras_importantes:
+            palavra_similar = encontra_palavra_similiar(
+                token_limpo.lower(),
+                palavras_importantes
+            )
+        else:
+            palavra_similar = token_limpo
+
         n_letras = len(token)
+        # Se o token possui mais de 50% de letras em caixa alta
+        # manter caixa alta
         if sum(map(lambda x: x.isupper(), token)) / n_letras > 0.5:
             documento_corrigido = documento_corrigido.replace(
                 token,
@@ -50,7 +58,7 @@ def corrige_palavras(documento_original, palavras_importantes):
         else:
             documento_corrigido = documento_corrigido.replace(
                 token,
-                palavra_similar
+                palavra_similar.lower()
             )
 
     return documento_corrigido
@@ -95,5 +103,4 @@ def encontra_palavra_similiar(palavra, palavras_importantes):
 
 
 def limpa_palavra(palavra):
-    padrao_desejado = re.compile(r'[^a-záéíóúãõâêç]')
-    return re.sub(padrao_desejado, '', palavra.lower())
+    return re.sub(PADRAO_LIMPEZA, '', palavra)
