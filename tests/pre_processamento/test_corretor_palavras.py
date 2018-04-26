@@ -84,6 +84,19 @@ class CorretorPalavras(TestCase):
 
         self.assertEqual(documento_corrigido, documento_esperado)
 
+    def test_substitui_por_palavra_mais_similiar(self):
+        """
+            Em alguns casos, existem palavras muito parecidas que podem
+            ser substituídas pela opção errada. I.e: Declaro e Decreto.
+            As palavras devem ser corrigidas pelas palavras mais próximas
+            e palavras corretas não devem ser corrigidas.
+        """
+        documento_com_erro = 'Decaro prodecente o decreto'
+
+        documento_corrigido = corrige_palavras(documento_com_erro,
+                                               PALAVRAS_IMPORTANTES)
+        documento_esperado = 'declaro procedente o decreto'
+
         self.assertEqual(documento_corrigido, documento_esperado)
 
     def test_encontra_palavra_mais_similar(self):
