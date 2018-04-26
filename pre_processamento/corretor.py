@@ -3,6 +3,7 @@ import re
 from difflib import SequenceMatcher
 
 
+LIMIAR_SEMELHANCA = 0.6
 PALAVRAS_IMPORTANTES = [
     'julgo',
     'procedente',
@@ -37,7 +38,8 @@ def corrige_palavras(documento_original, palavras_importantes):
 
     for palavra in PALAVRAS_IMPORTANTES:
         for token in documento_splitted:
-            if SequenceMatcher(None, palavra, token.lower()).ratio() > 0.6:
+            if (SequenceMatcher(None, palavra, token.lower()).ratio() >
+                    LIMIAR_SEMELHANCA):
                 n_letras = len(palavra)
                 if sum(map(lambda x: x.isupper(), token)) / n_letras > 0.5:
                     documento_corrigido = documento_corrigido.replace(
@@ -74,3 +76,18 @@ def formata_palavras(documento_original):
         encontrado = re.search(padrao, documento_corrigido)
 
     return documento_corrigido
+
+
+def encontra_palavra_similiar(palavra, palavras_importantes):
+    palavras_candidatas = []
+    for indice, palavra_importante in enumerate(palavras_importantes):
+        semelhanca = SequenceMatcher(None, palavra, palavra_importante).ratio()
+        if semelhanca >= LIMIAR_SEMELHANCA:
+            palavras_candidatas.append((semelhanca, indice))
+
+    if palavras_candidatas:
+        return palavras_importantes[
+            sorted(palavras_candidatas, reverse=True)[0][1]
+        ]
+
+    return palavra

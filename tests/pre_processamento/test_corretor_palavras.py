@@ -2,7 +2,8 @@ from unittest import TestCase
 
 from pre_processamento.corretor import (corrige_palavras,
                                         PALAVRAS_IMPORTANTES,
-                                        formata_palavras)
+                                        encontra_palavra_similiar,
+                                        )
 
 
 class CorretorPalavras(TestCase):
@@ -81,3 +82,14 @@ class CorretorPalavras(TestCase):
         documento_esperado = 'Pelo exposto, HOMOLOGO o pedido...'
 
         self.assertEqual(documento_corrigido, documento_esperado)
+
+    def test_encontra_palavra_mais_similar(self):
+        palavra_com_erro = 'decaro'
+
+        palavra_corrigida = encontra_palavra_similiar(
+            palavra_com_erro,
+            PALAVRAS_IMPORTANTES
+        )
+        palavra_esperada = 'declaro'
+
+        self.assertEqual(palavra_corrigida, palavra_esperada)
