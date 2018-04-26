@@ -4,6 +4,7 @@ from pre_processamento.corretor import (corrige_palavras,
                                         PALAVRAS_IMPORTANTES,
                                         formata_palavras,
                                         encontra_palavra_similiar,
+                                        limpa_palavra,
                                         )
 
 
@@ -109,3 +110,11 @@ class CorretorPalavras(TestCase):
         palavra_esperada = 'declaro'
 
         self.assertEqual(palavra_corrigida, palavra_esperada)
+
+    def test_limpa_palavra_antes_da_correcao(self):
+        palavra = 'Pedido...'
+
+        palavra_limpa = limpa_palavra(palavra)
+        palavra_esperada = 'pedido'
+
+        self.assertEqual(palavra_limpa, palavra_esperada)

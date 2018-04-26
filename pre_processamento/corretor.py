@@ -92,3 +92,8 @@ def encontra_palavra_similiar(palavra, palavras_importantes):
         ]
 
     return palavra
+
+
+def limpa_palavra(palavra):
+    padrao_desejado = re.compile(r'[^a-záéíóúãõâêç]')
+    return re.sub(padrao_desejado, '', palavra.lower())
