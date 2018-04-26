@@ -141,14 +141,14 @@ class ExtincaoProcessoClassifier(BaseClassifier):
 
 class ExtincaoComResolucaoClassifier(BaseClassifier):
     def __init__(self, texto):
-        regex = [r'(JULGO|JULGAR).{0,10}(EXTINTO).{0,30}(FEITO|PROCESSO)'
+        regex = [r'((JULGO|JULGAR).{0,10}(EXTINTO)|extingo|extinguindo).{0,30}(FEITO|PROCESSO)'
                  r'?( COM )(JULGAMENTO|RESOLU[CÇç][AÃã]O).+(M[EÉé]RITO)']
         super().__init__(texto, regex=regex)
 
 
 class ExtincaoSemResolucaoClassifier(BaseClassifier):
     def __init__(self, texto):
-        regex = [r'(JULGO|JULGAR).{0,10}(EXTINTO).{0,30}(FEITO|PROCESSO)'
+        regex = [r'((JULGO|JULGAR).{0,10}(EXTINTO)|extingo|extinguindo).{0,30}(FEITO|PROCESSO)'
                  r'?( SEM )(JULGAMENTO|RESOLU[CÇç][AÃã]O).+(M[EÉé]RITO)']
         super().__init__(texto, regex=regex)
 
