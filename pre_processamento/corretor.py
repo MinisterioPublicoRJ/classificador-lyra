@@ -6,6 +6,28 @@ from difflib import SequenceMatcher
 PALAVRAS_IMPORTANTES = [
     'julgo',
     'procedente',
+    'subsustente',
+    'condeno',
+    'acusado',
+    'acolho',
+    'pedido',
+    'inicial',
+    'indefiro',
+    'defiro',
+    'requerido',
+    'declaro',
+    'decreto',
+    'improcedente',
+    'extinto',
+    'determino',
+    'extinção',
+    'absolvo',
+    'absolvido',
+    'nego',
+    'provimento',
+    'resolver',
+    'merito',
+    'arquivamento',
 ]
 
 
