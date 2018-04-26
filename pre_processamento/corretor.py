@@ -32,7 +32,7 @@ def corrige_palavras(documento_original, palavras_importantes):
 
 
 def formata_palavras(documento_original):
-    padrao = re.compile(r'(\b([A-ZÁÉÃÕÇ]{1}\s){3,}\b([A-Z]\s?(\r\n|\n|\r))?)')
+    padrao = re.compile(r'(\b([A-ZÁÉÃÕÇ]{1}\s+){3,}\b([A-Z]\s?(\r\n|\n|\r))?)')
     documento_corrigido = documento_original
 
     encontrado = re.search(padrao, documento_corrigido)
