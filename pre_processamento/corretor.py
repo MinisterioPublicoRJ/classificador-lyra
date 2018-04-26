@@ -64,7 +64,7 @@ def formata_palavras(documento_original):
     while encontrado:
         palavra_corrigida = re.sub(r'\s+', '', encontrado.group(0))
 
-        quebra_de_linha = re.search(r'(\r\n|\n|\r)$', encontrado.group(0))
+        quebra_de_linha = re.search(r'(\r\n|\n|\r)\s+$', encontrado.group(0))
         if quebra_de_linha:
             palavra_corrigida += quebra_de_linha.group(0)
         else:
