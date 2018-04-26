@@ -2,30 +2,31 @@ from unittest import TestCase
 
 from pre_processamento.corretor import (corrige_palavras,
                                         PALAVRAS_IMPORTANTES,
+                                        formata_palavras,
                                         encontra_palavra_similiar,
                                         )
 
 
 class CorretorPalavras(TestCase):
     def test_corrige_palavras_especificas_do_documento(self):
-        documento_com_erro = 'JUGO PROCEDENTE o pedido...'
+        documento_com_erro = 'JUGO PROCEDENTE o pedido'
 
         documento_corrigido = corrige_palavras(
             documento_com_erro, PALAVRAS_IMPORTANTES
         )
 
-        documento_esperado = 'JULGO PROCEDENTE o pedido...'
+        documento_esperado = 'JULGO PROCEDENTE o pedido'
 
         self.assertEqual(documento_corrigido, documento_esperado)
 
     def test_corrige_multiplas_palavras_do_documento(self):
-        documento_com_erro = 'JUGO PROCENTE o pedido...'
+        documento_com_erro = 'JUGO PROCENTE o pedido'
 
         documento_corrigido = corrige_palavras(
             documento_com_erro, PALAVRAS_IMPORTANTES
         )
 
-        documento_esperado = 'JULGO PROCEDENTE o pedido...'
+        documento_esperado = 'JULGO PROCEDENTE o pedido'
 
         self.assertEqual(documento_corrigido, documento_esperado)
 
@@ -57,29 +58,31 @@ class CorretorPalavras(TestCase):
             como por exemplo H O M O L O G A D O. Estas serão corrigidas
             para a forma sem espaços.
         """
-        documento = 'Pelo exposto, H O M O L O G O o pedido...'
+        documento = 'Pelo exposto, H O M O L O G O o pedido'
 
         documento_corrigido = formata_palavras(documento)
 
-        documento_esperado = 'Pelo exposto, HOMOLOGO o pedido...'
+        documento_esperado = 'Pelo exposto, HOMOLOGO o pedido'
 
         self.assertEqual(documento_corrigido, documento_esperado)
 
     def test_corrige_palavras_separadas_internamente_com_quebra_de_linha(self):
-        documento = 'Pelo exposto, H O M O L O G O\r\n o pedido...'
+        documento = 'Pelo exposto, H O M O L O G O\r\n o pedido'
 
         documento_corrigido = formata_palavras(documento)
 
-        documento_esperado = 'Pelo exposto, HOMOLOGO\r\n o pedido...'
+        documento_esperado = 'Pelo exposto, HOMOLOGO\r\n o pedido'
 
         self.assertEqual(documento_corrigido, documento_esperado)
 
     def test_corrige_palavras_separadas_com_multiplos_espacos(self):
-        documento = 'Pelo exposto, H O M  O L O G  O o pedido...'
+        documento = 'Pelo exposto, H O M  O L O G  O o pedido'
 
         documento_corrigido = formata_palavras(documento)
 
-        documento_esperado = 'Pelo exposto, HOMOLOGO o pedido...'
+        documento_esperado = 'Pelo exposto, HOMOLOGO o pedido'
+
+        self.assertEqual(documento_corrigido, documento_esperado)
 
         self.assertEqual(documento_corrigido, documento_esperado)
 
