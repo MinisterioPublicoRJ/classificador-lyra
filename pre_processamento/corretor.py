@@ -33,7 +33,7 @@ PALAVRAS_IMPORTANTES = [
 ]
 
 
-def corrige_palavras(documento_original, palavras_importantes):
+def corrige_documento(documento_original, palavras_importantes):
     documento_corrigido = documento_original
     documento_splitted = documento_original.split()
 

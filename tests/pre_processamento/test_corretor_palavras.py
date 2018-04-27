@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from pre_processamento.corretor import (corrige_palavras,
+from pre_processamento.corretor import (corrige_documento,
                                         PALAVRAS_IMPORTANTES,
                                         formata_palavras,
                                         encontra_palavra_similiar,
@@ -9,10 +9,10 @@ from pre_processamento.corretor import (corrige_palavras,
 
 
 class CorretorPalavras(TestCase):
-    def test_corrige_palavras_especificas_do_documento(self):
+    def test_corrige_documento(self):
         documento_com_erro = 'JUGO PROCEDENTE o pedido'
 
-        documento_corrigido = corrige_palavras(
+        documento_corrigido = corrige_documento(
             documento_com_erro, PALAVRAS_IMPORTANTES
         )
 
@@ -23,7 +23,7 @@ class CorretorPalavras(TestCase):
     def test_corrige_multiplas_palavras_do_documento(self):
         documento_com_erro = 'JUGO PROCENTE o pedido'
 
-        documento_corrigido = corrige_palavras(
+        documento_corrigido = corrige_documento(
             documento_com_erro, PALAVRAS_IMPORTANTES
         )
 
@@ -41,10 +41,10 @@ class CorretorPalavras(TestCase):
         documento_com_erro_1 = 'JULGO PROCedeTE'
         documento_com_erro_2 = 'JULGO PROecdente'
 
-        documento_corrigido_1 = corrige_palavras(
+        documento_corrigido_1 = corrige_documento(
             documento_com_erro_1, PALAVRAS_IMPORTANTES
         )
-        documento_corrigido_2 = corrige_palavras(
+        documento_corrigido_2 = corrige_documento(
             documento_com_erro_2, PALAVRAS_IMPORTANTES
         )
         documento_esperado_1 = 'JULGO PROCEDENTE'
@@ -94,8 +94,8 @@ class CorretorPalavras(TestCase):
         """
         documento_com_erro = 'Decaro prodecente o decreto'
 
-        documento_corrigido = corrige_palavras(documento_com_erro,
-                                               PALAVRAS_IMPORTANTES)
+        documento_corrigido = corrige_documento(documento_com_erro,
+                                                PALAVRAS_IMPORTANTES)
         documento_esperado = 'declaro procedente o decreto'
 
         self.assertEqual(documento_corrigido, documento_esperado)
@@ -126,7 +126,8 @@ class CorretorPalavras(TestCase):
         """
         documento = "Jlgo procedente o peddio..."
 
-        documento_corrigido = corrige_palavras(documento, PALAVRAS_IMPORTANTES)
+        documento_corrigido = corrige_documento(documento,
+                                                PALAVRAS_IMPORTANTES)
 
         documento_esperado = 'julgo procedente o pedido...'
         self.assertEqual(documento_corrigido, documento_esperado)
