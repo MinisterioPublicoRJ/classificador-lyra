@@ -45,19 +45,19 @@ def corrige_palavras(documento_original, palavras_importantes):
                 palavras_importantes
             )
         else:
-            palavra_similar = token_limpo
+            continue
 
         n_letras = len(token)
         # Se o token possui mais de 50% de letras em caixa alta
         # manter caixa alta
         if sum(map(lambda x: x.isupper(), token)) / n_letras > 0.5:
             documento_corrigido = documento_corrigido.replace(
-                token,
+                token_limpo,
                 palavra_similar.upper()
             )
         else:
             documento_corrigido = documento_corrigido.replace(
-                token,
+                token_limpo,
                 palavra_similar.lower()
             )
 

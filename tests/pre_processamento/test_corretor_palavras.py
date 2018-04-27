@@ -38,8 +38,8 @@ class CorretorPalavras(TestCase):
             substituída pela correção também em caixa alta. Caso contrário,
             será substituída pela correção em caixa baixa.
         """
-        documento_com_erro_1 = 'JULGO PROCedenTE'
-        documento_com_erro_2 = 'JULGO PROCedente'
+        documento_com_erro_1 = 'JULGO PROCedeTE'
+        documento_com_erro_2 = 'JULGO PROecdente'
 
         documento_corrigido_1 = corrige_palavras(
             documento_com_erro_1, PALAVRAS_IMPORTANTES
@@ -118,3 +118,15 @@ class CorretorPalavras(TestCase):
         palavra_esperada = 'Pedido'
 
         self.assertEqual(palavra_limpa, palavra_esperada)
+
+    def test_mantem_estrutura_original_do_texto(self):
+        """
+            Ao substituir uma palavra manter o restante da estrutura do texto
+            intacta.
+        """
+        documento = "Jlgo procedente o peddio..."
+
+        documento_corrigido = corrige_palavras(documento, PALAVRAS_IMPORTANTES)
+
+        documento_esperado = 'julgo procedente o pedido...'
+        self.assertEqual(documento_corrigido, documento_esperado)
