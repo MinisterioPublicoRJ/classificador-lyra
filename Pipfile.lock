@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a5af16b9f9b25631c747179f3c6ae94abdcd87e2358994c84e52d39795567139"
+            "sha256": "7b5af3af8009b49fe5f4c1008a264cdeb423ce7fb8418ee2b3329334d43571f0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -15,7 +15,15 @@
             }
         ]
     },
-    "default": {},
+    "default": {
+        "jellyfish": {
+            "hashes": [
+                "sha256:5104e45a2b804b48a46a92a5e6d6e86830fe60ae83b1da32c867402c8f4c2094"
+            ],
+            "index": "pypi",
+            "version": "==0.6.1"
+        }
+    },
     "develop": {
         "attrs": {
             "hashes": [

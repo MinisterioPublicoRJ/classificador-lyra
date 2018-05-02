@@ -1,10 +1,10 @@
 import re
 
-from difflib import SequenceMatcher
+import jellyfish
 
 
 PADRAO_LIMPEZA = re.compile(r'[^a-záéíóúãõâêç]', re.IGNORECASE)
-LIMIAR_SEMELHANCA = 0.6
+LIMIAR_SEMELHANCA = 0.8
 PALAVRAS_IMPORTANTES = [
     'julgo',
     'procedente',
@@ -90,7 +90,7 @@ def formata_palavras(documento_original):
 def encontra_palavra_similiar(palavra, palavras_importantes):
     palavras_candidatas = []
     for indice, palavra_importante in enumerate(palavras_importantes):
-        semelhanca = SequenceMatcher(None, palavra, palavra_importante).ratio()
+        semelhanca = jellyfish.jaro_distance(palavra, palavra_importante)
         if semelhanca >= LIMIAR_SEMELHANCA:
             palavras_candidatas.append((semelhanca, indice))
 
