@@ -27,11 +27,11 @@ class BaseClassifier:
         # não permite termos indesejados na expressão encontrada
         # cria uma lista cópia da original para iterar e trabalha
         # na remoção dos itens da lista original
-        #for item in list(self.matches):
-        #    encontrado = item.group(0)
-        #    if self.regex_exclusao and re.findall(self.regex_exclusao,
-        #                                          encontrado, re.IGNORECASE):
-        #        self.matches.remove(item)
+        for item in list(self.matches):
+            encontrado = item.group(0)
+            if self.regex_exclusao and re.findall(self.regex_exclusao,
+                                                  encontrado, re.IGNORECASE):
+                self.matches.remove(item)
 
         if not self.matches:
             return
