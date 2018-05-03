@@ -50,7 +50,7 @@ class BaseClassifier:
 
 class ProcedenteClassifier(BaseClassifier):
     def __init__(self, texto):
-        regex = [r'((julgam?[- ]?se|julgo|declaro|DECRETO)[\w ,]{1,60}'
+        regex = [r'((julgam?[- ]?se|julgo|declaro|DECRETO)[\w ,]{,60}'
                  r'(procedente|subsistente))|'
                  r'(condeno (o|a)(s)? acusad(o|a)(s)?)',
                  r'(acolho o pedido inicial)',
@@ -66,7 +66,7 @@ class ProcedenteClassifier(BaseClassifier):
 
 class ImprocedenteClassifier(BaseClassifier):
     def __init__(self, texto):
-        regex = [r'((julgam?[- ]?se|julgo|declaro|DECRETO)[\w ,]{1,60}'
+        regex = [r'((julgam?[- ]?se|julgo|declaro|DECRETO)[\w ,]{,60}'
                  r'(improcedente))']
         regex_exclusao = r' procedente|parcialmente'
         super().__init__(texto,
@@ -77,7 +77,7 @@ class ImprocedenteClassifier(BaseClassifier):
 class ExtincaoPunibilidadeClassifier(BaseClassifier):
     def __init__(self, texto):
         regex = [r'((julgam?[- ]?se|julgo|declaro|determino|DECRETO)'
-                 r'[\w+ ,]{1,60}(extinto|(extinta|extinc)([\w ,]{1,60}'
+                 r'[\w+ ,]{1,60}(extinto|(extinta|extinc)([\w ,]{,60}'
                  r'(punibilidade|pena privativa))?))']
         regex_reforco = r'art\. 107'
         super().__init__(texto,
@@ -87,7 +87,7 @@ class ExtincaoPunibilidadeClassifier(BaseClassifier):
 
 class ParcialmenteProcedenteClassifier(BaseClassifier):
     def __init__(self, texto):
-        regex = [r'((julgam?[- ]?se|julgo|declaro)[\w+ ,]{1,60}(parcialmente)'
+        regex = [r'((julgam?[- ]?se|julgo|declaro)[\w+ ,]{,60}(parcialmente)'
                  r'[\w ,]{1,60}(procedente))']
         regex_exclusao = r'improcedente'
         regex_reforco = r'condeno'
