@@ -14,35 +14,38 @@ class BaseClassifier:
         self.texto = texto
         self.positivo = False
         self.pesos = []
-        self.posicao = None
+        self.posicao = []
+        self.matches = []
 
     def classificar(self):
-        match = None
         # match principal para identificação de sentença
         for item in self.regex:
             match = re.search(item, self.texto, re.MULTILINE | re.IGNORECASE)
             if match:
-                break
-
-        if not match:
-            return
-
-        encontrado = match.group(0)
+                self.matches += [match]
 
         # não permite termos indesejados na expressão encontrada
-        if self.regex_exclusao and re.findall(self.regex_exclusao,
-                                              encontrado, re.IGNORECASE):
+        # cria uma lista cópia da original para iterar e trabalha
+        # na remoção dos itens da lista original
+        for item in list(self.matches):
+            encontrado = item.group(0)
+            if self.regex_exclusao and re.findall(self.regex_exclusao,
+                                                  encontrado, re.IGNORECASE):
+                self.matches.remove(item)
+
+        if not self.matches:
             return
 
-        # legal, parece que temos o que queremos, vamos atribuir pesos
         self.positivo = True
 
+        # legal, parece que temos o que queremos, vamos atribuir pesos
         # reforço aplica um novo conjunto de regras a todo o texto
         if self.regex_reforco:
             self.pesos = re.findall(self.regex_reforco, self.texto,
                                     re.MULTILINE | re.IGNORECASE)
 
-        self.posicao = (match.start(), match.end())
+        for match in self.matches:
+            self.posicao += [(match.start(), match.end())]
 
 
 class ProcedenteClassifier(BaseClassifier):
@@ -141,14 +144,16 @@ class ExtincaoProcessoClassifier(BaseClassifier):
 
 class ExtincaoComResolucaoClassifier(BaseClassifier):
     def __init__(self, texto):
-        regex = [r'((JULGO|JULGAR).{0,10}(EXTINTO)|extingo|extinguindo).{0,30}(FEITO|PROCESSO)'
+        regex = [r'((JULGO|JULGAR).{0,10}(EXTINTO)|extingo|extinguindo)'
+                 r'.{0,30}(FEITO|PROCESSO)'
                  r'?( COM )(JULGAMENTO|RESOLU[CÇç][AÃã]O).+(M[EÉé]RITO)']
         super().__init__(texto, regex=regex)
 
 
 class ExtincaoSemResolucaoClassifier(BaseClassifier):
     def __init__(self, texto):
-        regex = [r'((JULGO|JULGAR).{0,10}(EXTINTO)|extingo|extinguindo).{0,30}(FEITO|PROCESSO)'
+        regex = [r'((JULGO|JULGAR).{0,10}(EXTINTO)|extingo|extinguindo)'
+                 r'.{0,30}(FEITO|PROCESSO)'
                  r'?( SEM )(JULGAMENTO|RESOLU[CÇç][AÃã]O).+(M[EÉé]RITO)']
         super().__init__(texto, regex=regex)
 
