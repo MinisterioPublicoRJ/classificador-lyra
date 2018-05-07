@@ -112,3 +112,7 @@ def filtro_dicionario(palavras, dicionario):
 
 def tokeniza(documento):
     return re.findall(r'[a-záâãéêóõúàíçü]+-?[a-z]+', documento.lower())
+
+
+def remove_stopwords(tokens, stopwords):
+    return [t for t in tokens if t not in stopwords]

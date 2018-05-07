@@ -7,6 +7,7 @@ from pre_processamento.corretor import (corrige_documento,
                                         limpa_palavra,
                                         filtro_dicionario,
                                         tokeniza,
+                                        remove_stopwords,
                                         )
 
 
@@ -156,3 +157,13 @@ class CorretorProbabilistico(TestCase):
                     'função']
 
         self.assertEqual(tokens, esperado)
+
+    def test_remove_stopwords(self):
+        tokens = ['um', 'texto', 'qualquer', 'para', 'testar', 'uma',
+                  'função']
+
+        stopwords = ['um', 'para', 'uma']
+        tokens_filtrados = remove_stopwords(tokens, stopwords)
+        esperado = ['texto', 'qualquer', 'testar', 'função']
+
+        self.assertEqual(tokens_filtrados, esperado)
