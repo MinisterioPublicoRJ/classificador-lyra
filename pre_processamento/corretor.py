@@ -108,3 +108,7 @@ def limpa_palavra(palavra):
 
 def filtro_dicionario(palavras, dicionario):
     return [p for p in palavras if p not in dicionario]
+
+
+def tokeniza(documento):
+    return re.findall(r'[a-záâãéêóõúàíçü]+-?[a-z]+', documento.lower())

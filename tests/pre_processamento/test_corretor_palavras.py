@@ -6,6 +6,7 @@ from pre_processamento.corretor import (corrige_documento,
                                         encontra_palavra_similiar,
                                         limpa_palavra,
                                         filtro_dicionario,
+                                        tokeniza,
                                         )
 
 
@@ -146,3 +147,12 @@ class CorretorProbabilistico(TestCase):
         esperado = ['aaabbbccc']
 
         self.assertEqual(palavras_conhecidas, esperado)
+
+    def test_tokeniza_documentos(self):
+        documento = 'Um texto qualquer para testar uma função'
+
+        tokens = tokeniza(documento)
+        esperado = ['um', 'texto', 'qualquer', 'para', 'testar', 'uma',
+                    'função']
+
+        self.assertEqual(tokens, esperado)
