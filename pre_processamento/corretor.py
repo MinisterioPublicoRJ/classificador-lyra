@@ -104,3 +104,7 @@ def encontra_palavra_similiar(palavra, palavras_importantes):
 
 def limpa_palavra(palavra):
     return re.sub(PADRAO_LIMPEZA, '', palavra)
+
+
+def filtro_dicionario(palavras, dicionario):
+    return [p for p in palavras if p not in dicionario]

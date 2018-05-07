@@ -5,6 +5,7 @@ from pre_processamento.corretor import (corrige_documento,
                                         formata_palavras,
                                         encontra_palavra_similiar,
                                         limpa_palavra,
+                                        filtro_dicionario,
                                         )
 
 
@@ -131,3 +132,17 @@ class CorretorPalavras(TestCase):
 
         documento_esperado = 'julgo procedente o pedido...'
         self.assertEqual(documento_corrigido, documento_esperado)
+
+
+class CorretorProbabilistico(TestCase):
+    def test_filtra_palavras_presentes_no_dicionario(self):
+        """
+            Retorna palavras que não estão no dicionário.
+        """
+        palavras = ['artigo', 'sentença', 'aaabbbccc']
+        dicionario = ['artigo', 'sentença']
+
+        palavras_conhecidas = filtro_dicionario(palavras, dicionario)
+        esperado = ['aaabbbccc']
+
+        self.assertEqual(palavras_conhecidas, esperado)
