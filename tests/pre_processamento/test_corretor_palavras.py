@@ -1,9 +1,7 @@
-from unittest import TestCase
+from unittest import TestCase, mock
 
 from pre_processamento.corretor import (corrige_documento,
-                                        PALAVRAS_IMPORTANTES,
                                         formata_palavras,
-                                        encontra_palavra_similiar,
                                         limpa_palavra,
                                         filtro_dicionario,
                                         tokeniza,
@@ -122,29 +120,17 @@ class CorretorPalavras(TestCase):
 
         self.assertEqual(palavra_limpa, palavra_esperada)
 
-    def test_mantem_estrutura_original_do_texto(self):
-        """
-            Ao substituir uma palavra manter o restante da estrutura do texto
-            intacta.
-        """
-        documento = "Jlgo procedente o peddio..."
-
-        documento_corrigido = corrige_documento(documento,
-                                                PALAVRAS_IMPORTANTES)
-
-        documento_esperado = 'julgo procedente o pedido...'
-        self.assertEqual(documento_corrigido, documento_esperado)
-
 
 class CorretorProbabilistico(TestCase):
-    def test_filtra_palavras_presentes_no_dicionario(self):
+    @mock.patch('pre_processamento.utils.dicionario',
+                return_values=['artigo', 'sentença'])
+    def test_filtra_palavras_presentes_no_dicionario(self, _dicionario):
         """
             Retorna palavras que não estão no dicionário.
         """
         palavras = ['artigo', 'sentença', 'aaabbbccc']
-        dicionario = ['artigo', 'sentença']
 
-        palavras_conhecidas = filtro_dicionario(palavras, dicionario)
+        palavras_conhecidas = filtro_dicionario(palavras)
         esperado = ['aaabbbccc']
 
         self.assertEqual(palavras_conhecidas, esperado)
@@ -158,12 +144,21 @@ class CorretorProbabilistico(TestCase):
 
         self.assertEqual(tokens, esperado)
 
-    def test_remove_stopwords(self):
+    @mock.patch('pre_processamento.utils.stopwords',
+                return_values=['um', 'para', 'uma'])
+    def test_remove_stopwords(self, _stopwords):
         tokens = ['um', 'texto', 'qualquer', 'para', 'testar', 'uma',
                   'função']
 
-        stopwords = ['um', 'para', 'uma']
-        tokens_filtrados = remove_stopwords(tokens, stopwords)
+        tokens_filtrados = remove_stopwords(tokens)
         esperado = ['texto', 'qualquer', 'testar', 'função']
 
         self.assertEqual(tokens_filtrados, esperado)
+
+    def test_corrige_documento(self):
+        documento_com_erro = "JULGA-SE PROCENTE O PEDIDO"
+
+        documento_corrigido = corrige_documento(documento_com_erro)
+        esperado = "julga-se procedente o pedido"
+
+        self.assertEqual(documento_corrigido, esperado)

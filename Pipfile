@@ -12,6 +12,7 @@ ipdb = "*"
 
 [packages]
 jellyfish = "*"
+nltk = "*"
 
 [requires]
 python_version = "3.6"

@@ -1,67 +1,83 @@
 import re
 
 import jellyfish
+import nltk
+
+from operator import itemgetter
+
+from pre_processamento.utils import (dicionario,
+                                     stopwords,
+                                     bigramas_corpora,
+                                     palavras_importantes)
 
 
 PADRAO_LIMPEZA = re.compile(r'[^a-záéíóúãõâêç]', re.IGNORECASE)
 LIMIAR_SEMELHANCA = 0.8
-PALAVRAS_IMPORTANTES = [
-    'julgo',
-    'procedente',
-    'subsustente',
-    'condeno',
-    'acusado',
-    'acolho',
-    'pedido',
-    'inicial',
-    'indefiro',
-    'defiro',
-    'requerido',
-    'declaro',
-    'decreto',
-    'improcedente',
-    'extinto',
-    'determino',
-    'extinção',
-    'absolvo',
-    'absolvido',
-    'nego',
-    'provimento',
-    'resolver',
-    'merito',
-    'arquivamento',
-]
 
 
-def corrige_documento(documento_original, palavras_importantes):
-    documento_corrigido = documento_original
-    documento_splitted = documento_original.split()
+def corrige_documento(documento_original):
+    documento_corrigido = documento_original.lower()
+    pos = itemgetter(1)
+    bigramas, bigramas_erro, palavras_erro = prepara_documento(
+        documento_original
+    )
 
-    for token in documento_splitted:
-        token_limpo = limpa_palavra(token)
-        if token_limpo.lower() not in palavras_importantes:
-            palavra_similar = encontra_palavra_similiar(
-                token_limpo.lower(),
-                palavras_importantes
-            )
-        else:
-            continue
+    for palavra_com_erro in palavras_erro:
+        palavras_sugeridas = sugestoes(palavra_com_erro)
+        sugestoes_existentes = (
+            palavras_sugeridas & dicionario & palavras_importantes
+        )
 
-        n_letras = len(token)
-        # Se o token possui mais de 50% de letras em caixa alta
-        # manter caixa alta
-        if sum(map(lambda x: x.isupper(), token)) / n_letras > 0.5:
+        # TODO: Inverter ordem das palavras do bigrama i.e: (p1, p2), (p2, p1)
+        frequencias = []
+        for sugestao in sugestoes_existentes:
+            for bigrama in bigramas_erro:
+                copia_bigrama = list(bigrama)
+                copia_bigrama.append(sugestao)
+                copia_bigrama.remove(palavra_com_erro)
+                freq = bigramas_corpora[tuple(copia_bigrama)]
+
+                # Levar em consideracao bigramas com frequencia > 2
+                if freq < 2:
+                    continue
+
+                frequencias.append([sugestao, freq])
+
+            sugestao_provavel = sorted(
+                frequencias,
+                key=pos,
+                reverse=True)[0][0]
+
             documento_corrigido = documento_corrigido.replace(
-                token_limpo,
-                palavra_similar.upper()
-            )
-        else:
-            documento_corrigido = documento_corrigido.replace(
-                token_limpo,
-                palavra_similar.lower()
+                palavra_com_erro, sugestao_provavel
             )
 
     return documento_corrigido
+
+
+def prepara_documento(documento):
+    palavras = [p for p in tokeniza(documento) if p not in stopwords]
+    bigramas = constroi_ngramas(palavras)
+    erros = filtro_dicionario(palavras)
+    bigramas_erro = [b for b in bigramas for p in erros if p in b]
+    return bigramas, bigramas_erro, erros
+
+
+def _combinacoes(palavra):
+    # fonte: http://norvig.com/spell-correct.html
+    letters = 'abcdefghijklmnopqrstuvwxyz'
+    splits = [(palavra[:i], palavra[i:]) for i in range(len(palavra) + 1)]
+    deletes = [L + R[1:] for L, R in splits if R]
+    transposes = [L + R[1] + R[0] + R[2:] for L, R in splits if len(R) > 1]
+    replaces = [L + c + R[1:] for L, R in splits if R for c in letters]
+    inserts = [L + c + R for L, R in splits for c in letters]
+    return set(deletes + transposes + replaces + inserts)
+
+
+def sugestoes(palavra):
+    # TODO: retornar conjunto para evitar repeticoes
+    "All edits that are two edits away from `word`."
+    return set((c2 for c1 in _combinacoes(palavra) for c2 in _combinacoes(c1)))
 
 
 def formata_palavras(documento_original):
@@ -106,7 +122,7 @@ def limpa_palavra(palavra):
     return re.sub(PADRAO_LIMPEZA, '', palavra)
 
 
-def filtro_dicionario(palavras, dicionario):
+def filtro_dicionario(palavras):
     return [p for p in palavras if p not in dicionario]
 
 
@@ -114,5 +130,9 @@ def tokeniza(documento):
     return re.findall(r'[a-záâãéêóõúàíçü]+-?[a-z]+', documento.lower())
 
 
-def remove_stopwords(tokens, stopwords):
+def remove_stopwords(tokens):
     return [t for t in tokens if t not in stopwords]
+
+
+def constroi_ngramas(palavras, tamanho=2):
+    return list(nltk.ngrams(palavras, tamanho))
