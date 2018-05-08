@@ -1,6 +1,5 @@
 import re
 
-import jellyfish
 import nltk
 
 from operator import itemgetter
@@ -101,25 +100,6 @@ def formata_palavras(documento_original):
         encontrado = re.search(padrao, documento_corrigido)
 
     return documento_corrigido
-
-
-def encontra_palavra_similiar(palavra, palavras_importantes):
-    palavras_candidatas = []
-    for indice, palavra_importante in enumerate(palavras_importantes):
-        semelhanca = jellyfish.jaro_distance(palavra, palavra_importante)
-        if semelhanca >= LIMIAR_SEMELHANCA:
-            palavras_candidatas.append((semelhanca, indice))
-
-    if palavras_candidatas:
-        return palavras_importantes[
-            sorted(palavras_candidatas, reverse=True)[0][1]
-        ]
-
-    return palavra
-
-
-def limpa_palavra(palavra):
-    return re.sub(PADRAO_LIMPEZA, '', palavra)
 
 
 def filtro_dicionario(palavras):
