@@ -39,7 +39,24 @@ def corrige_documento(documento_original):
     return documento_corrigido
 
 
-def correcao(palavra_erro, bigramas, bigramas_erro, sugestoes):
+def corrige_bigramas(grupo_bigramas, erro, correcao):
+    sep = '$'
+
+    grupos_corrigidos = []
+    for grupo in grupo_bigramas:
+        bigrama_corrigido = []
+        for bigrama in grupo:
+            if erro in bigrama:
+                bigrama = tuple(
+                    sep.join(bigrama).replace(erro, correcao).split(sep)
+                )
+
+            bigrama_corrigido.append(bigrama)
+        grupos_corrigidos.append(bigrama_corrigido)
+
+    return grupos_corrigidos
+
+
     pos = itemgetter(1)
     frequencias = []
     sugestao_provavel = ''

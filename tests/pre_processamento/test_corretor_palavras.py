@@ -5,6 +5,7 @@ from pre_processamento.corretor import (corrige_documento,
                                         filtro_dicionario,
                                         tokeniza,
                                         remove_stopwords,
+                                        corrige_bigramas,
                                         )
 
 
@@ -102,3 +103,25 @@ class CorretorProbabilistico(TestCase):
         esperado = 'portanto julgo procedente o pedido'
 
         self.assertEqual(documento_corrigido, esperado)
+    def test_substitui_palavra_errada_nos_bigramas_por_palavra_corrigida(self):
+        bigramas_erro = [
+            [('exposto', 'julh'), ('julh', 'procedete')],
+            [('julh', 'procedete'), ('procedete', 'peddo')],
+            [('procedete', 'peddo')]
+        ]
+        palavra_erro = 'julh'
+        palavra_corrigida = 'julgo'
+
+        bigramas_corrigidos = corrige_bigramas(
+            bigramas_erro,
+            palavra_erro,
+            palavra_corrigida
+        )
+
+        esperado = [
+            [('exposto', 'julgo'), ('julgo', 'procedete')],
+            [('julgo', 'procedete'), ('procedete', 'peddo')],
+            [('procedete', 'peddo')]
+        ]
+
+        self.assertEqual(bigramas_corrigidos, esperado)
