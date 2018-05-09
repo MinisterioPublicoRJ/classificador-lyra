@@ -83,3 +83,14 @@ class CorretorProbabilistico(TestCase):
         esperado = "julga-se procedente o pedido"
 
         self.assertEqual(documento_corrigido, esperado)
+
+    def test_inverte_bigrama(self):
+        """
+            Utilizar a frequência do bigrama invertido i.e (p1, p2) -> (p2, p1)
+        """
+        documento_com_erro = "JULG PROCEDENTE O PEDIDO"
+
+        documento_corrigido = corrige_documento(documento_com_erro)
+        esperado = 'julgo procedente o pedido'
+
+        self.assertEqual(documento_corrigido, esperado)

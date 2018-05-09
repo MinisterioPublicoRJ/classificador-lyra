@@ -27,7 +27,6 @@ def corrige_documento(documento_original):
             palavras_sugeridas & dicionario & palavras_importantes
         )
 
-        # TODO: Inverter ordem das palavras do bigrama i.e: (p1, p2), (p2, p1)
         frequencias = []
         for sugestao in sugestoes_existentes:
             for bigrama in bigramas_erro:
@@ -35,21 +34,25 @@ def corrige_documento(documento_original):
                 copia_bigrama.append(sugestao)
                 copia_bigrama.remove(palavra_com_erro)
                 freq = bigramas_corpora[tuple(copia_bigrama)]
+                freq_inv = bigramas_corpora[
+                    (copia_bigrama[1], copia_bigrama[0])
+                ]
 
                 # Levar em consideracao bigramas com frequencia > 2
-                if freq < 2:
+                if freq < 2 and freq_inv < 2:
                     continue
 
-                frequencias.append([sugestao, freq])
+                frequencias.append([sugestao, max(freq, freq_inv)])
 
-            sugestao_provavel = sorted(
-                frequencias,
-                key=pos,
-                reverse=True)[0][0]
+            if frequencias:
+                sugestao_provavel = sorted(
+                    frequencias,
+                    key=pos,
+                    reverse=True)[0][0]
 
-            documento_corrigido = documento_corrigido.replace(
-                palavra_com_erro, sugestao_provavel
-            )
+                documento_corrigido = documento_corrigido.replace(
+                    palavra_com_erro, sugestao_provavel
+                )
 
     return documento_corrigido
 
