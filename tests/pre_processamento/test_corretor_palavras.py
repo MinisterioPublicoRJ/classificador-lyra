@@ -103,6 +103,15 @@ class CorretorProbabilistico(TestCase):
         esperado = 'portanto julgo procedente o pedido'
 
         self.assertEqual(documento_corrigido, esperado)
+
+    def test_corrige_documento_com_erros_adjacentes(self):
+        documento_com_erros = 'pelo exposto julh procedete o peddo'
+
+        documento_corrigido = corrige_documento(documento_com_erros)
+        esperado = 'pelo exposto julgo procedente o pedido'
+
+        self.assertEqual(documento_corrigido, esperado)
+
     def test_substitui_palavra_errada_nos_bigramas_por_palavra_corrigida(self):
         bigramas_erro = [
             [('exposto', 'julh'), ('julh', 'procedete')],

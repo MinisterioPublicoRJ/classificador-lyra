@@ -27,13 +27,18 @@ def corrige_documento(documento_original):
         )
         sugestao = correcao(
             palavra_com_erro,
-            bigramas,
             bigramas_erro[indice],
             sugestoes_existentes
         )
         if sugestao:
             documento_corrigido = documento_corrigido.replace(
                 palavra_com_erro, sugestao
+            )
+            # Substitui palavra errada pela sugestão nos bigramas
+            bigramas_erro = corrige_bigramas(
+                bigramas_erro,
+                palavra_com_erro,
+                sugestao
             )
 
     return documento_corrigido
@@ -57,6 +62,7 @@ def corrige_bigramas(grupo_bigramas, erro, correcao):
     return grupos_corrigidos
 
 
+def correcao(palavra_erro, bigramas_erro, sugestoes):
     pos = itemgetter(1)
     frequencias = []
     sugestao_provavel = ''
