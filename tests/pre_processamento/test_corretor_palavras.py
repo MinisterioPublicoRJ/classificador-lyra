@@ -94,3 +94,11 @@ class CorretorProbabilistico(TestCase):
         esperado = 'julgo procedente o pedido'
 
         self.assertEqual(documento_corrigido, esperado)
+
+    def test_corrige_documento_com_multiplos_erros(self):
+        documento_com_erros = 'portanto julh procedente o peddo'
+
+        documento_corrigido = corrige_documento(documento_com_erros)
+        esperado = 'portanto julgo procedente o pedido'
+
+        self.assertEqual(documento_corrigido, esperado)

@@ -16,52 +16,66 @@ LIMIAR_SEMELHANCA = 0.8
 
 def corrige_documento(documento_original):
     documento_corrigido = documento_original.lower()
-    pos = itemgetter(1)
     bigramas, bigramas_erro, palavras_erro = prepara_documento(
         documento_original
     )
 
-    for palavra_com_erro in palavras_erro:
+    for indice, palavra_com_erro in enumerate(palavras_erro):
         palavras_sugeridas = sugestoes(palavra_com_erro)
         sugestoes_existentes = (
             palavras_sugeridas & dicionario & palavras_importantes
         )
-
-        frequencias = []
-        for sugestao in sugestoes_existentes:
-            for bigrama in bigramas_erro:
-                copia_bigrama = list(bigrama)
-                copia_bigrama.append(sugestao)
-                copia_bigrama.remove(palavra_com_erro)
-                freq = bigramas_corpora[tuple(copia_bigrama)]
-                freq_inv = bigramas_corpora[
-                    (copia_bigrama[1], copia_bigrama[0])
-                ]
-
-                # Levar em consideracao bigramas com frequencia > 2
-                if freq < 2 and freq_inv < 2:
-                    continue
-
-                frequencias.append([sugestao, max(freq, freq_inv)])
-
-            if frequencias:
-                sugestao_provavel = sorted(
-                    frequencias,
-                    key=pos,
-                    reverse=True)[0][0]
-
-                documento_corrigido = documento_corrigido.replace(
-                    palavra_com_erro, sugestao_provavel
-                )
+        sugestao = correcao(
+            palavra_com_erro,
+            bigramas,
+            bigramas_erro[indice],
+            sugestoes_existentes
+        )
+        if sugestao:
+            documento_corrigido = documento_corrigido.replace(
+                palavra_com_erro, sugestao
+            )
 
     return documento_corrigido
+
+
+def correcao(palavra_erro, bigramas, bigramas_erro, sugestoes):
+    pos = itemgetter(1)
+    frequencias = []
+    sugestao_provavel = ''
+    for sugestao in sugestoes:
+        for bigrama in bigramas_erro:
+            copia_bigrama = list(bigrama)
+            copia_bigrama.append(sugestao)
+            copia_bigrama.remove(palavra_erro)
+            freq = bigramas_corpora[tuple(copia_bigrama)]
+            freq_inv = bigramas_corpora[
+                (copia_bigrama[1], copia_bigrama[0])
+            ]
+
+            # Levar em consideracao bigramas com frequencia > 2
+            if freq < 2 and freq_inv < 2:
+                continue
+
+            frequencias.append([sugestao, max(freq, freq_inv)])
+
+        if frequencias:
+            sugestao_provavel = sorted(
+                frequencias,
+                key=pos,
+                reverse=True)[0][0]
+
+    return sugestao_provavel
 
 
 def prepara_documento(documento):
     palavras = [p for p in tokeniza(documento) if p not in stopwords]
     bigramas = constroi_ngramas(palavras)
     erros = filtro_dicionario(palavras)
-    bigramas_erro = [b for b in bigramas for p in erros if p in b]
+    bigramas_erro = []
+    for erro in erros:
+        bigramas_erro.append([b for b in bigramas if erro in b])
+
     return bigramas, bigramas_erro, erros
 
 
