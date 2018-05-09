@@ -10,10 +10,6 @@ from pre_processamento.utils import (dicionario,
                                      palavras_importantes)
 
 
-PADRAO_LIMPEZA = re.compile(r'[^a-záéíóúãõâêç]', re.IGNORECASE)
-LIMIAR_SEMELHANCA = 0.8
-
-
 def corrige_documento(documento_original):
     documento_corrigido = documento_original.lower()
     bigramas, bigramas_erro, palavras_erro = prepara_documento(
