@@ -77,7 +77,7 @@ class ImprocedenteClassifier(BaseClassifier):
 class ExtincaoPunibilidadeClassifier(BaseClassifier):
     def __init__(self, texto):
         regex = [r'((julgam?[- ]?se|julgo|declaro|determino|DECRETO)'
-                 r'[\w+ ,]{1,60}(extinto|(extinta|extinc)([\w ,]{1,60}'
+                 r'[\w+ ,]{1,60}(extinto|(extinta|extin[çc][aã]o)([\w ,]{1,60}'
                  r'(punibilidade|pena privativa))?))']
         regex_reforco = r'art\. 107'
         super().__init__(texto,
