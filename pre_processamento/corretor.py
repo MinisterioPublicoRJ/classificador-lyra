@@ -100,7 +100,7 @@ def prepara_documento(documento):
 
 def _combinacoes(palavra):
     # fonte: http://norvig.com/spell-correct.html
-    letters = 'abcdefghijklmnopqrstuvwxyz'
+    letters = 'abcdefghijklmnopqrstuvwxyzç'
     splits = [(palavra[:i], palavra[i:]) for i in range(len(palavra) + 1)]
     deletes = [L + R[1:] for L, R in splits if R]
     transposes = [L + R[1] + R[0] + R[2:] for L, R in splits if len(R) > 1]
