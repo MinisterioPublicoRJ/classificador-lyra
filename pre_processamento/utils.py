@@ -16,6 +16,8 @@ bigramas_corpora = Counter(nltk.bigrams(corpora))
 
 palavras_importantes = set([
     'julgo',
+    'julga-se',
+    'julgam-se',
     'procedente',
     'subsustente',
     'condeno',
@@ -37,6 +39,20 @@ palavras_importantes = set([
     'nego',
     'provimento',
     'resolver',
-    'merito',
+    'mérito',
     'arquivamento',
+    'medida',
+    'autorização',
+    'habilitação',
+    'parcialmente',
+    'sumariamente',
+    'nego-lhes',
+    'dou',
+    'dou-lhes',
+    'deixo',
+    'ordem',
+    'presente'
+    'resolução',
+    'extingo',
+    'extinguindo',
 ])
