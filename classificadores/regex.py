@@ -54,7 +54,8 @@ class ProcedenteClassifier(BaseClassifier):
                  r'(procedente|subsistente))|'
                  r'(condeno (o|a)(s)? acusad(o|a)(s)?)',
                  r'(acolho o pedido inicial)',
-                 r'((?<!in)defiro (o|a) (autoriza[CÇç][AÃã]o|habilita[CÇç][AÃã]o|medida|'
+                 r'((?<!in)defiro (o|a) (autoriza[CÇç][AÃã]o|habilita[CÇç]'
+                 r'[AÃã]o|medida|'
                  r'pedido|requerido))']
         regex_exclusao = r'improcedente|parcialmente'
         regex_reforco = r'condeno'
@@ -77,7 +78,8 @@ class ImprocedenteClassifier(BaseClassifier):
 class ExtincaoPunibilidadeClassifier(BaseClassifier):
     def __init__(self, texto):
         regex = [r'((julgam?[- ]?se|julgo|declaro|determino|DECRETO)'
-                 r'[\w+ ,]{1,60}(extinto|(extinta|extin[CÇç][AÃã]o)([\w ,]{1,60}'
+                 r'[\w+ ,]{1,60}(extinto|(extinta|extin[CÇç][AÃã]o)'
+                 r'([\w ,]{1,60}'
                  r'(punibilidade|pena privativa))?))']
         regex_reforco = r'art\. 107'
         super().__init__(texto,
