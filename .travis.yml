@@ -3,11 +3,11 @@ python:
   - "3.5"
 install:
   - pip install --upgrade pip
-  - pip install pipenv
+  - pip install pipenv flake8
   - pipenv install --dev
 script:
-  - pipenv run flake8 .
-  - pipenv run pytest
+  - flake8 .
+  - pipenv run pytest -v
 notifications:
   email:
     - felipe.gomes.ferreira@gmail.com
