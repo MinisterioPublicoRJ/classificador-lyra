@@ -18,11 +18,17 @@ class BaseClassifier:
         self.matches = []
 
     def classificar(self):
+        match = None
         # match principal para identificação de sentença
         for item in self.regex:
             match = re.search(item, self.texto, re.MULTILINE | re.IGNORECASE)
             if match:
                 self.matches += [match]
+
+        if not match:
+            return
+
+        encontrado = match.group(0)
 
         # não permite termos indesejados na expressão encontrada
         # cria uma lista cópia da original para iterar e trabalha
