@@ -38,6 +38,7 @@ palavras_importantes = set([
     'absolvido',
     'nego',
     'provimento',
+    'improvimento',
     'resolver',
     'mérito',
     'arquivamento',

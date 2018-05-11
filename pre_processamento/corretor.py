@@ -100,7 +100,7 @@ def prepara_documento(documento):
 
 def _combinacoes(palavra):
     # fonte: http://norvig.com/spell-correct.html
-    letters = 'abcdefghijklmnopqrstuvwxyzçéáóãõíü'
+    letters = 'abcdefghijklmnopqrstuvwxyzçéáóãõíüâô'
     splits = [(palavra[:i], palavra[i:]) for i in range(len(palavra) + 1)]
     deletes = [L + R[1:] for L, R in splits if R]
     transposes = [L + R[1] + R[0] + R[2:] for L, R in splits if len(R) > 1]
@@ -139,11 +139,16 @@ def formata_palavras(documento_original):
 
 
 def filtro_dicionario(palavras):
-    return [p for p in palavras if p not in dicionario]
+    erros = []
+    for palavra in palavras:
+        if palavra not in dicionario and palavra not in erros:
+            erros.append(palavra)
+
+    return erros
 
 
 def tokeniza(documento):
-    return re.findall(r'[a-záâãéêóõúàíçü]+-?[a-z]+', documento.lower())
+    return re.findall(r'[a-záâãéêóõôúàíçü]+-?[a-z]+', documento.lower())
 
 
 def remove_stopwords(tokens):

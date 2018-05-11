@@ -134,3 +134,11 @@ class CorretorProbabilistico(TestCase):
         ]
 
         self.assertEqual(bigramas_corrigidos, esperado)
+
+    def test_correcao_documento_com_mesma_palavra_errada_multiplas_vezes(self):
+        documento_com_erros = 'pelo exposto julh procedete o julh'
+
+        documento_corrigido = corrige_documento(documento_com_erros)
+        esperado = 'pelo exposto julgo procedente o julgo'
+
+        self.assertEqual(documento_corrigido, esperado)
