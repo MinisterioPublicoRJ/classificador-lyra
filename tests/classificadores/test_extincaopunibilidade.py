@@ -1,4 +1,4 @@
-from classificadores.regex import ExtincaoPunibilidadeClassifier
+from classificador_lyra.procedencia import ExtincaoPunibilidadeClassifier
 from .utils import RegexTest
 
 

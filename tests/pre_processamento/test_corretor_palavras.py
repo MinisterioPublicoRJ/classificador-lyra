@@ -1,12 +1,13 @@
 from unittest import TestCase, mock
 
-from pre_processamento.corretor import (corrige_documento,
-                                        formata_palavras,
-                                        filtro_dicionario,
-                                        tokeniza,
-                                        remove_stopwords,
-                                        corrige_bigramas,
-                                        )
+from classificador_lyra.pre_processamento.corretor import (
+    corrige_documento,
+    formata_palavras,
+    filtro_dicionario,
+    tokeniza,
+    remove_stopwords,
+    corrige_bigramas,
+)
 
 
 class CorretorPalavras(TestCase):
@@ -44,7 +45,7 @@ class CorretorPalavras(TestCase):
 
 
 class CorretorProbabilistico(TestCase):
-    @mock.patch('pre_processamento.utils.dicionario',
+    @mock.patch('classificador_lyra.pre_processamento.utils.dicionario',
                 return_values=['artigo', 'sentença'])
     def test_filtra_palavras_presentes_no_dicionario(self, _dicionario):
         """
@@ -66,7 +67,7 @@ class CorretorProbabilistico(TestCase):
 
         self.assertEqual(tokens, esperado)
 
-    @mock.patch('pre_processamento.utils.stopwords',
+    @mock.patch('classificador_lyra.pre_processamento.utils.stopwords',
                 return_values=['um', 'para', 'uma'])
     def test_remove_stopwords(self, _stopwords):
         tokens = ['um', 'texto', 'qualquer', 'para', 'testar', 'uma',

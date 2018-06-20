@@ -1,7 +1,7 @@
 from unittest import TestCase
 from .fixtures.fixtures import procedencia, recorte_procedencia
-from classificadores.dispositivo import Dispositivo
-from classificadores.regex import ProcedenteClassifier
+from classificador_lyra.dispositivo import Dispositivo
+from classificador_lyra.procedencia import ProcedenteClassifier
 
 
 class Dispositivos(TestCase):
