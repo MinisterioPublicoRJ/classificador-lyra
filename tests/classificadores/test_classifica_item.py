@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from classificadores.regex import classifica_item
+from classificador_lyra.procedencia import classifica_item
 
 from .fixtures.improcedencia import improcedentes
 

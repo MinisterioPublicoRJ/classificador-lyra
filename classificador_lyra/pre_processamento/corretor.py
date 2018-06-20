@@ -4,10 +4,12 @@ import nltk
 
 from operator import itemgetter
 
-from pre_processamento.utils import (dicionario,
-                                     stopwords,
-                                     bigramas_corpora,
-                                     palavras_importantes)
+from classificador_lyra.pre_processamento.utils import (
+    dicionario,
+    stopwords,
+    bigramas_corpora,
+    palavras_importantes
+)
 
 
 def corrige_documento(documento_original):

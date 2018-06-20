@@ -1,6 +1,6 @@
 from unittest import TestCase, main
 
-from classificadores.regex import classifica_item
+from classificador_lyra.procedencia import classifica_item
 from tests.fixtures import sentencas, nao_sentencas
 
 
