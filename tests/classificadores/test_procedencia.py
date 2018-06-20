@@ -1,6 +1,6 @@
 import operator
 
-from classificadores.regex import ProcedenteClassifier
+from classificador_lyra.procedencia import ProcedenteClassifier
 
 from .fixtures.procedencia import nao_procedentes, procedentes
 from .utils import RegexTest

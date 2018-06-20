@@ -1,6 +1,6 @@
 import operator
 
-from classificadores.regex import ImprocedenteClassifier
+from classificador_lyra.procedencia import ImprocedenteClassifier
 
 from .fixtures.improcedencia import improcedentes, nao_improcedentes
 from .utils import RegexTest
