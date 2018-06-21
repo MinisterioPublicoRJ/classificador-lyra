@@ -2,8 +2,8 @@ import operator
 
 from classificador_lyra.procedencia import ImprocedenteClassifier
 
-from .fixtures.improcedencia import improcedentes, nao_improcedentes
-from .utils import RegexTest
+from ..fixtures.improcedencia import improcedentes, nao_improcedentes
+from ..utils import RegexTest
 
 
 class ImprocedenciaTest(RegexTest):

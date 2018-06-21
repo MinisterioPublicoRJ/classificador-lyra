@@ -2,8 +2,8 @@ import operator
 
 from classificador_lyra.procedencia import ProcedenteClassifier
 
-from .fixtures.procedencia import nao_procedentes, procedentes
-from .utils import RegexTest
+from ..fixtures.procedencia import nao_procedentes, procedentes
+from ..utils import RegexTest
 
 
 class ProcedenciaTest(RegexTest):
