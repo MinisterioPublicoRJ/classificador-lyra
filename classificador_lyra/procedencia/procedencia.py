@@ -1,4 +1,3 @@
-from collections import namedtuple
 from classificador_lyra.regex import BaseClassifier
 
 
@@ -147,25 +146,3 @@ classificadores = [ProcedenteClassifier,
                    ExtincaoProcessoClassifier,
                    ExtincaoComResolucaoClassifier,
                    ExtincaoSemResolucaoClassifier]
-
-
-def classifica_item(texto):
-    classificacoes = {}
-    namedtuple
-
-    for classificador in classificadores:
-        classificador = classificador(texto)
-        classificador.classificar()
-
-        classificacoes[classificador.__class__.__name__] = {
-            'positivo': classificador.positivo,
-            'pesos': classificador.pesos,
-        }
-
-    return {
-        'conteudo': texto,
-        'classificacoes': classificacoes,
-        'positivo': sum(
-            [classificacoes[x]['positivo'] for x in classificacoes]
-        )
-    }
