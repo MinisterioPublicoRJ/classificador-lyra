@@ -1,13 +1,13 @@
 
 import operator
 
-from classificador_lyra.procedencia import ImprocedenteClassifier
+from classificador_lyra.consumidor import 
 
 from .fixtures.improcedencia import improcedentes, nao_improcedentes
 from .utils import RegexTest
 
 
-class ImprocedenciaTest(RegexTest):
+class Cobran(RegexTest):
     classificador = ImprocedenteClassifier
 
     def test_improcedente(self):
