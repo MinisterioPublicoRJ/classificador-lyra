@@ -1,13 +1,13 @@
 from .procedencia import (
-    classifica_item,
     ExtincaoPunibilidadeClassifier,
     ImprocedenteClassifier,
     ProcedenteClassifier,
+    classificadores
 )
 
 
 __all__ = [
-    "classifica_item",
+    "classificadores",
     "ExtincaoPunibilidadeClassifier",
     "ImprocedenteClassifier",
     "ProcedenteClassifier",

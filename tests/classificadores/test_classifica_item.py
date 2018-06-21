@@ -1,14 +1,13 @@
 from unittest import TestCase
-
-from classificador_lyra.procedencia import classifica_item
-
+from classificador_lyra.regex import classifica_item
+from classificador_lyra.procedencia import classificadores
 from .fixtures.improcedencia import improcedentes
 
 
 class ClassificaTest(TestCase):
 
     def test_classificador_improcedente(self):
-        resultado = classifica_item(improcedentes[0])
+        resultado = classifica_item(improcedentes[0], classificadores)
         assert resultado['classificacoes'] == {
             'ProcedenteClassifier': {'positivo': False, 'pesos': []},
             'ImprocedenteClassifier': {'positivo': True, 'pesos': []},

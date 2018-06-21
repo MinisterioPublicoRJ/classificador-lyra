@@ -1,5 +1,5 @@
 from classificador_lyra.procedencia import ExtincaoPunibilidadeClassifier
-from .utils import RegexTest
+from ..utils import RegexTest
 
 
 class ExtincaoPunibilidadeTest(RegexTest):
