@@ -1,7 +1,9 @@
 import re
+from abc import ABC
 
 
-class BaseClassifier:
+class BaseClassifier(ABC):
+    """Classificador utilizando expressões regulares"""
     def __init__(self,
                  texto,
                  regex=None,
@@ -9,6 +11,66 @@ class BaseClassifier:
                  regex_exclusao=None,
                  regex_invalidacao=None,
                  coadunadas=False):
+        """
+        Constrói um Classificador REGEX
+
+        O validador irá processar o texto informado após a execução
+        do método "classificar", atribuindo às propriedades:
+            positivo bool
+            pesos [str]
+            posicao [(int,)]
+            matches [re]
+
+        Que podem ser utilizadas posteriormente para análise dos
+        matches encontrados.
+
+        Keywords arguments:
+        texto -- str
+                    Texto a ser classificado.
+                    Pode ser um texto de múltiplas linhas
+        regex -- [str]
+                    Conjunto de expressões regulares principais
+                    a serem confrontadas com o texto informado.
+                    A regex deve possuir pelo menos uma opção
+                    englobando toda a expressão, ex.:
+                    r'(expressao|outra expressao)'
+                    Podem ser informadas quantas expressões
+                    forem necessárias para realizar buscas
+                    no texto
+        regex_reforco -- [str]
+                    Conjunto de expressões que, caso tenha
+                    sido encontrado pelo menos uma expressão
+                    válida nas expressões principais acima,
+                    informa também em quais locais do texto
+                    foram encontradas expressões que podem
+                    auxiliar na validação de um documento e
+                    dar mais "peso" a ele.
+                    Armazenará o resultado na propriedade
+                    "pesos" para posterior análise
+        regex_exclusao -- [str]
+                    Para cada expressão principal encontrada o
+                    validador irá confrontar expressões que
+                    não deveriam estar no match, ex.:
+                    Texto: 'parcialmente procedente'
+                    Regex: r'(parcialmente.{,10}procedente)'
+                    Regex Exclusão: r'(improcedente)'
+                    Fará com que o validador encontre:
+                        "Parcialmente procedente"
+                    E não valide expressões como
+                        "Parcialmente improcedente"
+        regex_invalidacao -- [str]
+                    Marca como negativa a validação de
+                    um texto caso qualquer uma das expressões
+                    informadas neste parâmetro seja encontrada
+                    em todo o texto.
+        coadunadas -- bool (default=False)
+                    Caso esse parâmetro seja True, o classificador
+                    irá obrigar que todas as expressões regulares
+                    informadas estejam presentes no texto a ser
+                    classificado.
+                    Caso qualquer uma das expressões informadas não
+                    esteja no texto, ela será marcada como negativa.
+        """
         self.regex = regex
         self.regex_reforco = regex_reforco
         self.regex_exclusao = regex_exclusao
@@ -21,6 +83,11 @@ class BaseClassifier:
         self.matches = []
 
     def classificar(self):
+        """
+        Classifica o Texto parametrizado com os critérios informados
+        no construtor
+        """
+
         # antes de qualquer coisa, não trabalha com textos que contém
         # termos que são indesejados no texto inteiro e o invalidam
         if self.regex_invalidacao:
@@ -32,7 +99,7 @@ class BaseClassifier:
                 if match:
                     return
 
-        # match principal para identificação de sentença
+        # match principal para identificação de documento
         for item in self.regex:
             match = re.search(item, self.texto, re.MULTILINE | re.IGNORECASE)
             if match:
