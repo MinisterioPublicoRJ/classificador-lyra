@@ -12,7 +12,7 @@ class CobrancaSobAmeaca(BaseClassifier):
         ]
 
         super().__init__(
-            self,
+            texto,
             regex=regex,
             coadunadas=True
         )
@@ -30,7 +30,7 @@ class CobrancaServicoNaoFornecido(BaseClassifier):
         ]
 
         super().__init__(
-            self,
+            texto,
             regex=regex,
             regex_invalidacao=regex_invalidacao
         )
@@ -40,15 +40,16 @@ class DanosEletrodomesticos(BaseClassifier):
     def __init__(self, texto):
         regex = [
             r'(perda|dano|queimou|queima|assist.ncia|aparelho|'
-            r'eletrodom.stico|TV|geladeira|refrigerador|danificado)'
+            r'eletrodom.stico|\sTV\s|geladeira|refrigerador|danificado)'
         ]
 
         regex_invalidacao = [
-            r'(conta|fatura|cobran.a|m[éÉe]dia)'
+            r'(\sconta\s|fatura|cobran.a|\sm[éÉe]dia\s)',
+            _TOI
         ]
 
         super().__init__(
-            self,
+            texto,
             regex=regex,
             regex_invalidacao=regex_invalidacao
         )
