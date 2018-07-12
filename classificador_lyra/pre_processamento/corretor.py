@@ -14,7 +14,7 @@ from classificador_lyra.pre_processamento.utils import (
 
 def corrige_documento(documento_original):
     documento_corrigido = documento_original.lower()
-    bigramas, bigramas_erro, palavras_erro = prepara_documento(
+    bigramas_erro, palavras_erro = prepara_documento(
         documento_original
     )
 
@@ -97,7 +97,7 @@ def prepara_documento(documento):
     for erro in erros:
         bigramas_erro.append([b for b in bigramas if erro in b])
 
-    return bigramas, bigramas_erro, erros
+    return bigramas_erro, erros
 
 
 def _combinacoes(palavra):

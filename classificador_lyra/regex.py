@@ -154,3 +154,15 @@ def classifica_item(texto, classificadores):
             [classificacoes[x]['positivo'] for x in classificacoes]
         )
     }
+
+
+def classifica_item_sequencial(texto, classificadores):
+    for classificador in classificadores:
+        classificador = classificador(texto)
+        classificador.classificar()
+
+        if classificador.positivo:
+            return {
+                'conteudo': texto,
+                'classificacao': classificador,
+            }
