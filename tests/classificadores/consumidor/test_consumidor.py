@@ -3,7 +3,11 @@ import operator
 from classificador_lyra.consumidor import (
     CobrancaSobAmeaca,
     CobrancaServicoNaoFornecido,
-    DanosEletrodomesticos
+    DanosEletrodomesticos,
+    DificuldadeContratacaoRecusaInjustificada,
+    InterrupcaoInstabilidadeFornecimento,
+    NegativacaoIndevida,
+    DificuldadeRenegociacao,
 )
 from ..fixtures.consumidor import (
     cobranca_sob_ameaca,
@@ -13,7 +17,12 @@ from ..fixtures.consumidor import (
     nao_cobranca_servico_nao_fornecido,
     dano_eletrodomestico,
     nao_dano_eletrodomestico_toi,
-    nao_dano_eletrodomestico
+    nao_dano_eletrodomestico,
+    dificuldade_contratar,
+    interrupcao_fornecimento,
+    negativacao_indevida,
+    nao_negativacao_indevida,
+    dificuldade_renegociacao,
 )
 from ..utils import RegexTest
 
@@ -67,4 +76,45 @@ class TestDanosEletrodomesticos(RegexTest):
     def test_nao_danos_eletrodomesticos(self):
         self.textos = nao_dano_eletrodomestico
         self.operador = operator.not_
+        self.testador_textos()
+
+
+class TestDificuldadeContratacaoRecusaInjustificada(RegexTest):
+    classificador = DificuldadeContratacaoRecusaInjustificada
+
+    def test_dificuldade_contratar(self):
+        self.textos = dificuldade_contratar
+        self.operador = operator.truth
+        self.testador_textos()
+
+
+class TestInterrupcaoInstabilidadeFornecimento(RegexTest):
+    classificador = InterrupcaoInstabilidadeFornecimento
+
+    def test_instabilidade_fornecimento(self):
+        self.textos = interrupcao_fornecimento
+        self.operador = operator.truth
+        self.testador_textos()
+
+
+class TestNegativacaoIndevida(RegexTest):
+    classificador = NegativacaoIndevida
+
+    def test_negativacao_indevida(self):
+        self.textos = negativacao_indevida
+        self.operador = operator.truth
+        self.testador_textos()
+
+    def test_nao_negativacao_indevida(self):
+        self.textos = nao_negativacao_indevida
+        self.operador = operator.not_
+        self.testador_textos()
+
+
+class TestDificuldadeRenegociacao(RegexTest):
+    classificador = DificuldadeRenegociacao
+
+    def test_dificuldade_renegociacao(self):
+        self.textos = dificuldade_renegociacao
+        self.operador = operator.truth
         self.testador_textos()
