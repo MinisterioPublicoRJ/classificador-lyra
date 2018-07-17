@@ -8,6 +8,8 @@ from classificador_lyra.consumidor import (
     InterrupcaoInstabilidadeFornecimento,
     NegativacaoIndevida,
     DificuldadeRenegociacao,
+    DemandaNaoResolvida,
+    CobrancaTarifa,
 )
 from ..fixtures.consumidor import (
     cobranca_sob_ameaca,
@@ -23,6 +25,8 @@ from ..fixtures.consumidor import (
     negativacao_indevida,
     nao_negativacao_indevida,
     dificuldade_renegociacao,
+    sac,
+    tarifa,
 )
 from ..utils import RegexTest
 
@@ -116,5 +120,23 @@ class TestDificuldadeRenegociacao(RegexTest):
 
     def test_dificuldade_renegociacao(self):
         self.textos = dificuldade_renegociacao
+        self.operador = operator.truth
+        self.testador_textos()
+
+
+class TestDemanadaNaoResolvida(RegexTest):
+    classificador = DemandaNaoResolvida
+
+    def test_demanda_nao_resolvida(self):
+        self.textos = sac
+        self.operador = operator.truth
+        self.testador_textos()
+
+
+class TestCobrancaTarifa(RegexTest):
+    classificador = CobrancaTarifa
+
+    def test_cobranca_tarifa(self):
+        self.textos = tarifa
         self.operador = operator.truth
         self.testador_textos()
