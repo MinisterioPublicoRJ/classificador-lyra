@@ -6,6 +6,8 @@ from .consumidor_energia import (
     InterrupcaoInstabilidadeFornecimento,
     NegativacaoIndevida,
     DificuldadeRenegociacao,
+    DemandaNaoResolvida,
+    CobrancaTarifa,
     classificadores
 )
 
@@ -17,5 +19,7 @@ __all__ = [
     'InterrupcaoInstabilidadeFornecimento',
     'NegativacaoIndevida',
     'DificuldadeRenegociacao',
-    'classificadores'
+    'DemandaNaoResolvida',
+    'CobrancaTarifa',
+    'classificadores',
 ]

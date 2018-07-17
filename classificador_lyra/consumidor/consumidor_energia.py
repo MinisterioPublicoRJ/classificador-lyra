@@ -124,11 +124,38 @@ class CobrancaServicoNaoFornecido(BaseClassifier):
         )
 
 
+class DemandaNaoResolvida(BaseClassifier):
+    def __init__(self, texto):
+        regex = [
+            r'(\sSAC\s|\sS[\. ]A[\. ]C)'
+        ]
+
+        super().__init__(
+            texto,
+            regex=regex
+        )
+
+
+class CobrancaTarifa(BaseClassifier):
+    def __init__(self, texto):
+        regex = [
+            r'( tarifa)'
+        ]
+
+        super().__init__(
+            texto,
+            regex=regex
+        )
+
+
 classificadores = [
     CobrancaSobAmeaca,
     DificuldadeContratacaoRecusaInjustificada,
     DanosEletrodomesticos,
     InterrupcaoInstabilidadeFornecimento,
     NegativacaoIndevida,
+    DificuldadeRenegociacao,
     CobrancaServicoNaoFornecido,
+    DemandaNaoResolvida,
+    CobrancaTarifa,
 ]

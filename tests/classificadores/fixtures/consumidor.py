@@ -160,3 +160,15 @@ dificuldade_renegociacao = [
     Trata-se de pedido de antecipação de tutela, formulado pela autora em razão de irregularidades na cobrança de parcelamento efetivado junto à concessionária, pleiteando a mesma que a empresa ré se abstenha de incluir seu nome no cadastro de inadimplentes, e, ainda, não proceda à eventual interrupção no fornecimento de energia elétrica que abastece a sua residência.
     """
 ]
+
+sac = [
+    """
+    Aduz que  entrou em contato mais de uma vez com a ré, através do SAC 0800-282.0120, e requereu o cancelamento das cobranças e restituição dos referidos valores, tendo sido informado na ocasião que se tratava de suposto TOI, contudo até o presente momento nenhum esclarecimento foi dado e nenhuma providência adotada. 
+    """
+]
+
+tarifa = [
+    """
+    Tendo em vista  que a tarifa de fornecimento de energia elétrica  é obrigação pessoal, com natureza contratual e, não é uma obrigação propter rem, o débito tarifário não pode ser transferido ao novo usuário do serviço essencial, nos termos da súmula nº 196 deste EgrégioTribunal. Assim sendo, a recusa do restabelecimento do fornecimento de energia elétrica ao autor no caso em tela é injustificada.
+    """
+]
