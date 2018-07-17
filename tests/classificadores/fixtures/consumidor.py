@@ -131,3 +131,32 @@ nao_dano_eletrodomestico = [
     1. Defiro JG. Considerando a probabilidade do direito que se pretende antecipar, que decorre da impugnação dirigida ao lavrado pela ré, de forma unilateral, bem como o perigo de ou risco ao resultado útil do processo, que se depreende da incidência imediata das sanções deste decorrentes (referidas a serviço de natureza essencial), e, ainda, a inexistência do perigo de irreversibilidade dos efeitos desta decisão, pela possibilidade de ulterior  dos valores com juros, se alteradas as razões desta decisão, entendo presentes os requisitos legais do artigo 300 do CPC e concedo a tutela de urgência incidente antecipada, determinado que a parte ré que se abstenha de interromper 
     """
 ]
+
+dificuldade_contratar = [
+    """De análise dos documentos acostados, verifico que o débito apontado é do antigo morador, visto que o contrato de locação do imóvel foi assinado pelo autor em julho do ano em curso. Assim, entendo que presentes os pressupostos do artigo 300 do CPC/2015,  e  tratando-se de serviço essencial, indispensável à sobrevivência, devendo ser prestado de forma adequada, eficiente, segura e  contínua, DEFIRO  o pedido de antecipação dos efeitos da tutela para determinar que a parte ré realize a transferência de titularidade dos serviços vinculados ao  imóvel  situado  na   Estrada Rio  do  A  nº  1.711 Loja  D,  Campo  Grande,  CEP.:  23080-300 para  o  nome  da  parte autora, restabelecendo o serviço de energia elétrica no local, no prazo de 24 horas, sob pena de multa diária no valor de R$ 300,00 a vigorar, inicialmente, pelo prazo de 30 dias, devendo a parte informar ao juízo em caso de descumprimento, para a tomada das providências cabíveis.  Intime-se.
+    """
+]
+
+interrupcao_fornecimento = [
+    """
+    A interrupção do serviço afeta a dignidade do consumidor que também possui proteção constitucional (artigo 1º, III da CF), pois, o fornecimento de energia elétrica à semelhança de outros como: água, transporte, esgoto, telefonia é indispensável à manutenção e preservação da vida, saúde e higiene das pessoas. A descontinuidade do serviço essencial acarreta lesão ao consumidor, sendo ilegal, pois, contrária ao CDC e à CF/88.
+    """
+]
+
+negativacao_indevida = [
+    """
+    Depreende-se do comunicado de fl. 31 que o nome da autora fora incluído em cadastros restritivos de crédito pelo não pagamento da fatura com vencimento em 11/01/2018 (fl.39), sendo certo que nesta está incluído um dos débitos questionados pela autora nesta ação. A manutenção do nome do consumidor em rol de devedores acarreta enormes prejuízos, pois impede de realizar contratos que impulsionam a vida em nossa sociedade, que à evidência impõe a celebração de diversos contratos em especial os de natureza creditícia, já que vivemos em uma sociedade eminentemente capitalista, assim, para evitar danos de ordem moral e material à autora, seu nome deve ser retirado do cadastro de devedores.
+    """
+]
+
+nao_negativacao_indevida = [
+    """
+    Trata-se de pedido de tutela provisória, visando a parte autora a que a ré se abstenha de suspender o fornecimento de energia elétrica em sua residência, em razão de suposto débito apurado unilateralmente e que deu azo à lavratura de ´TOI´, bem como de incluir, ou se já estiver incluído, que exclua o nome do autora no cadastro de maus pagadores, e cobrar nas faturas o parcelamento a ela imposto, até ulterior decisão.
+    """
+]
+
+dificuldade_renegociacao = [
+    """
+    Trata-se de pedido de antecipação de tutela, formulado pela autora em razão de irregularidades na cobrança de parcelamento efetivado junto à concessionária, pleiteando a mesma que a empresa ré se abstenha de incluir seu nome no cadastro de inadimplentes, e, ainda, não proceda à eventual interrupção no fornecimento de energia elétrica que abastece a sua residência.
+    """
+]
