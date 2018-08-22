@@ -135,6 +135,27 @@ class BaseClassifier(ABC):
             self.posicao += [(match.start(), match.end())]
 
 
+class ClassificadorParametrizado(BaseClassifier):
+    def __init__(self, texto, parametros):
+        # retirar do dicionário "parametros" os parametros do __init__
+        # .
+        # .
+        # .
+        super().__init__(
+            texto,
+            regex,
+            regex_reforco,
+            regex_exclusao,
+            regex_invalidacao,
+            coadunadas,
+            texto,
+            positivo,
+            pesos,
+            posicao,
+            matches,
+        )
+
+
 def classifica_item(texto, classificadores):
     classificacoes = {}
 
@@ -166,3 +187,13 @@ def classifica_item_sequencial(texto, classificadores):
                 'conteudo': texto,
                 'classificacao': classificador,
             }
+
+
+def classificador_parametrizado(texto, parametros, metodo):
+    classificadores = []
+    for parametro in parametros:
+        classificaodores.append(ClassificadorParametrizado(texto, parametro))
+    
+    return metodo(texto, classifidacores)
+
+        
