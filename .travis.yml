@@ -11,3 +11,5 @@ script:
 notifications:
   email:
     - felipe.gomes.ferreira@gmail.com
+after_success:
+  - codecov
