@@ -184,3 +184,9 @@ def classifica_item_sequencial(texto, classificadores):
                 'conteudo': texto,
                 'classificacao': classificador,
             }
+
+
+def constroi_classificador_dinamica(nome):
+    nova_classe = type(nome, (ClassificadorParametrizado,), {})
+
+    return nova_classe
