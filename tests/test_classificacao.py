@@ -1,4 +1,4 @@
-from unittest import TestCase, main
+from unittest import TestCase
 from classificador_lyra.regex import classifica_item
 from classificador_lyra.procedencia import classificadores
 from tests.fixtures import sentencas, nao_sentencas
@@ -22,7 +22,3 @@ class Classificacao(TestCase):
         resultado = classifica_item(documento, classificadores)
 
         self.assertFalse(_verifica_resultado(resultado))
-
-
-if __name__ == '__main__':
-    main()

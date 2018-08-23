@@ -16,7 +16,7 @@ class BaseClassifier(ABC):
 
         O validador irá processar o texto informado após a execução
         do método "classificar", atribuindo às propriedades:
-            positivo bool
+            positivo boolregex_invalidacao
             pesos [str]
             posicao [(int,)]
             matches [re]
@@ -135,6 +135,24 @@ class BaseClassifier(ABC):
             self.posicao += [(match.start(), match.end())]
 
 
+class ClassificadorParametrizado(BaseClassifier):
+    def __init__(self, texto, parametros):
+        regex = parametros['regex']
+        regex_reforco = parametros['regex_reforco']
+        regex_exclusao = parametros['regex_exclusao']
+        regex_invalidacao = parametros['regex_invalidacao']
+        coadunadas = parametros['coadunadas']
+
+        super().__init__(
+            texto,
+            regex,
+            regex_reforco,
+            regex_exclusao,
+            regex_invalidacao,
+            coadunadas
+        )
+
+
 def classifica_item(texto, classificadores):
     classificacoes = {}
 
@@ -166,3 +184,9 @@ def classifica_item_sequencial(texto, classificadores):
                 'conteudo': texto,
                 'classificacao': classificador,
             }
+
+
+def constroi_classificador_dinamica(nome):
+    nova_classe = type(nome, (ClassificadorParametrizado,), {})
+
+    return nova_classe
