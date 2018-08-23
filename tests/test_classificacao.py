@@ -1,4 +1,4 @@
-from unittest import TestCase, main
+from unittest import TestCase
 from classificador_lyra.regex import classifica_item
 from classificador_lyra.procedencia import classificadores
 from tests.fixtures import sentencas, nao_sentencas
