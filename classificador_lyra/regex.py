@@ -136,12 +136,12 @@ class BaseClassifier(ABC):
 
 
 class ClassificadorParametrizado(BaseClassifier):
-    def __init__(self, texto, parametros):
-        regex = parametros['regex']
-        regex_reforco = parametros['regex_reforco']
-        regex_exclusao = parametros['regex_exclusao']
-        regex_invalidacao = parametros['regex_invalidacao']
-        coadunadas = parametros['coadunadas']
+    def __init__(self, texto):
+        regex = self.__class__.parametros['regex']
+        regex_reforco = self.__class__.parametros['regex_reforco']
+        regex_exclusao = self.__class__.parametros['regex_exclusao']
+        regex_invalidacao = self.__class__.parametros['regex_invalidacao']
+        coadunadas = self.__class__.parametros['coadunadas']
 
         super().__init__(
             texto,
@@ -186,7 +186,7 @@ def classifica_item_sequencial(texto, classificadores):
             }
 
 
-def constroi_classificador_dinamica(nome):
+def constroi_classificador_dinamica(nome, parametros):
     nova_classe = type(nome, (ClassificadorParametrizado,), {})
-
+    nova_classe.parametros = parametros
     return nova_classe
