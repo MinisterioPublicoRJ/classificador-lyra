@@ -5,12 +5,12 @@ import nltk
 
 
 dicionario = set([p.lower().strip() for p in
-                  open(env['DICIONARIO'], encoding='utf-8')])
+                  open(env.get('DICIONARIO', 'classificador_lyra/pre_processamento/dicionario.txt'), encoding='utf-8')])
 
-stopwords = [s.strip().lower() for s in open(env['STOPWORDS'])]
+stopwords = [s.strip().lower() for s in open(env.get('STOPWORDS', 'classificador_lyra/pre_processamento/stopwords.txt'))]
 
 # Prepara corpora
-corpora = [p.strip() for p in open(env['BAG_OF_WORDS'])]
+corpora = [p.strip() for p in open(env.get('BAG_OF_WORDS', 'classificador_lyra/pre_processamento/corpora.txt'))]
 bigramas_corpora = Counter(nltk.bigrams(corpora))
 
 
