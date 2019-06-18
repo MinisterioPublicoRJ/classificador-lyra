@@ -128,9 +128,13 @@ class BaseClassifier(ABC):
 
         # legal, parece que temos o que queremos, vamos atribuir pesos
         # reforço aplica um novo conjunto de regras a todo o texto
-        if self.regex_reforco:
-            self.pesos = re.findall(self.regex_reforco, self.texto,
-                                    re.MULTILINE | re.IGNORECASE)
+        self.pesos = [
+            re.findall(
+                regex_reforco,
+                self.texto,
+                re.MULTILINE | re.IGNORECASE)
+            for regex_reforco in self.regex_reforco
+        ]
 
         for match in self.matches:
             self.posicao += [(match.start(), match.end())]
