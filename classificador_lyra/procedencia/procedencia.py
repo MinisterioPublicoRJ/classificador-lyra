@@ -10,7 +10,7 @@ class ProcedenteClassifier(BaseClassifier):
                  r'((?<!in)defiro (o|a) (autoriza[CÇç][AÃã]o|habilita[CÇç]'
                  r'[AÃã]o|medida|'
                  r'pedido|requerido))']
-        regex_exclusao = r'improcedente|parcialmente'
+        regex_exclusao = [r'improcedente|parcialmente']
         regex_reforco = r'condeno'
         super().__init__(texto,
                          regex=regex,
@@ -22,7 +22,7 @@ class ImprocedenteClassifier(BaseClassifier):
     def __init__(self, texto):
         regex = [r'((julgam?[- ]?se|julgo|declaro|DECRETO)[\w ,]{1,60}'
                  r'(improcedente))']
-        regex_exclusao = r' procedente|parcialmente'
+        regex_exclusao = [r' procedente|parcialmente']
         super().__init__(texto,
                          regex=regex,
                          regex_exclusao=regex_exclusao)
@@ -44,7 +44,7 @@ class ParcialmenteProcedenteClassifier(BaseClassifier):
     def __init__(self, texto):
         regex = [r'((julgam?[- ]?se|julgo|declaro)[\w+ ,]{1,60}(parcialmente)'
                  r'[\w ,]{1,60}(procedente))']
-        regex_exclusao = r'improcedente'
+        regex_exclusao = [r'improcedente']
         regex_reforco = r'condeno'
         super().__init__(texto,
                          regex=regex,

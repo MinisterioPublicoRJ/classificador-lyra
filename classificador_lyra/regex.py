@@ -6,10 +6,10 @@ class BaseClassifier(ABC):
     """Classificador utilizando expressões regulares"""
     def __init__(self,
                  texto,
-                 regex=None,
-                 regex_reforco=None,
-                 regex_exclusao=None,
-                 regex_invalidacao=None,
+                 regex=[],
+                 regex_reforco=[],
+                 regex_exclusao=[],
+                 regex_invalidacao=[],
                  coadunadas=False):
         """
         Constrói um Classificador REGEX
@@ -114,11 +114,12 @@ class BaseClassifier(ABC):
         # não permite termos indesejados na expressão encontrada
         # cria uma lista cópia da original para iterar e trabalha
         # na remoção dos itens da lista original
-        for item in list(self.matches):
-            encontrado = item.group(0)
-            if self.regex_exclusao and re.findall(self.regex_exclusao,
-                                                  encontrado, re.IGNORECASE):
-                self.matches.remove(item)
+        for regex_exclusao in self.regex_exclusao:
+            for item in list(self.matches):
+                encontrado = item.group(0)
+                if regex_exclusao and re.findall(regex_exclusao,
+                                                 encontrado, re.IGNORECASE):
+                    self.matches.remove(item)
 
         if not self.matches:
             return
