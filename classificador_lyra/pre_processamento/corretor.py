@@ -1,7 +1,5 @@
 import re
-
 import nltk
-
 from operator import itemgetter
 
 from classificador_lyra.pre_processamento.utils import (
@@ -21,7 +19,7 @@ def corrige_documento(documento_original):
     for indice, palavra_com_erro in enumerate(palavras_erro):
         palavras_sugeridas = sugestoes(palavra_com_erro)
         sugestoes_existentes = (
-            palavras_sugeridas & dicionario & palavras_importantes
+                palavras_sugeridas & dicionario & palavras_importantes
         )
         sugestao = correcao(
             palavra_com_erro,
