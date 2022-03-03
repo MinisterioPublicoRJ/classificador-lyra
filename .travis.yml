@@ -8,7 +8,7 @@ install:
   - pipenv install --dev
 script:
   - flake8 .
-  - pipenv run coverage run -m pytest -v
+  - pipenv run coverage run -m pytest -v --ignore=lib/
 notifications:
   email:
     - felipe.gomes.ferreira@gmail.com
