@@ -1,0 +1,6 @@
+-r requirements.txt
+flake8==4.0.1
+ipdb==0.13.9
+pylint==2.12.2
+pytest==7.0.1
+Cython==0.29.28
