@@ -1,16 +1,15 @@
 language: python
 dist: xenial
 python:
-  - "3.7"
+  - "3.9"
 install:
   - pip install --upgrade pip
-  - pip install pipenv flake8
-  - pipenv install --dev
+  - pip install -r requirements-dev.txt;
 script:
-  - flake8 .
-  - pipenv run coverage run -m pytest -v --ignore=lib/
+  - flake8 . --count --exit-zero --max-complexity=16 --max-line-length=127 --statistics
+  - coverage run -m pytest --ignore=lib
 notifications:
   email:
-    - felipe.gomes.ferreira@gmail.com
+    - welington.souza@mprj.mp.br
 after_success:
   - codecov
